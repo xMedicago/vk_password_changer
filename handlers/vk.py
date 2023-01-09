@@ -1,9 +1,11 @@
-from aiogram import types
-from loader import dp
+from aiogram import types, Router, F
+
 from utils.misc.vk_password_change import VK
 
+router = Router()
 
-@dp.message_handler(content_types=types.ContentType.TEXT)
+
+@router.message(F.content_type.in_({types.ContentType.TEXT}))
 async def vk_auth(message: types.Message):
     try:
         username, password = message.text.split(":")
